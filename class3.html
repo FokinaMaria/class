@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+    </style>
+</head>
+
+<body>
+    <script>
+        //класс
+        function Task(title){
+	        this._title = title;
+	        this._done = false;
+            //статическое свойство
+            Task.count += 1;
+        }
+        //свойства
+        Object.defineProperty(Task, 'title', {
+	        get: function () {
+		        return this._title;
+	        },
+	        set: function (value) {
+		        this._title = value;
+	        }
+        });
+        //метод класса
+        Task.prototype.complete = function () {
+	        this._done = true;
+        };
+        //статический метод
+        Task.getDefaultTitle = function () {
+	        return 'Задача';
+        }
+        //наследование от родителя
+        function SubTask(title, parent) {
+	        Task.call(this, title);
+	        this._parent = parent;
+        }
+        //прототипом класса SubTask является прототип класса Task.
+        SubTask.prototype = Object.create(Task.prototype);
+        //у прототипа класса SubTask конструктором является функция SubTask.
+        SubTask.prototype.constructor = SubTask;
+        var task = new Task('Изучить JavaScript');
+        var subtask = new SubTask('Изучить ES6', task);
+        //task.getDefaultTitle();
+        console.log(task);
+        console.log(subtask);
+
+        function Bank (name) {
+            this.name = name;
+            this._budget=1000000;
+        }
+        Bank.prototype.messadeBanc=function(){
+           return message = 'вы обратились в банк';   
+        }
+        arrayEmploye = ['Employe1', 'Employe2'];
+        arrayNameClient = ['Anna', 'Annastasia', 'Piter', 'Garri', 'Jon'];
+        function Employe (name, employes) {
+            Bank.call(this, name);
+            this.employes = employes;
+        }
+        function Client (clients) {
+            this.clients = clients;
+            _countClient: function() {
+                return this.clients.lenght;
+            }
+        }
+
+         var bank = new Bank('Finanse');
+         var employe =new Employe ('Finanse', arrayEmploye);
+         var clients = new Client (arrayNameClient);
+         console.log(bank);
+         console.log(clients);
+         console.log(employe);
+         console.log(bank.messadeBanc());
+         console.log(clients._countClient());
+         
+    </script>
+</body>
+
+</html>
